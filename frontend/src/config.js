@@ -1,3 +1,3 @@
-export const BASE_URL = "http://localhost:3005";
-//https://tvfbackend.onrender.com
+export const BASE_URL = "https://tvfserver.onrender.com";
+// https://tvfserver.onrender.com
 //http://localhost:3000
