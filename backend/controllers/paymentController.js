@@ -27,6 +27,7 @@ const checkout = async (req, res) => {
     status: "pending",
     items: req.body.items,
     cust_order_id: cust_id,
+    location: req.body.location,
   };
   await Order.create(orderObj);
 
@@ -60,13 +61,14 @@ const paymentVerification = async (req, res) => {
     });
 
     const task = await Order.findOne({ razorpay_order_id: razorpay_order_id });
-    const { status, amount, items, cust_order_id } = task;
+    const { status, amount, items, cust_order_id, location } = task;
     await VerifiedOrder.create({
       status,
       razorpay_order_id,
       amount,
       items,
       cust_order_id,
+      location,
     });
     res.status(200).send(`<html>
     <head>

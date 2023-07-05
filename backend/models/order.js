@@ -22,6 +22,10 @@ const orderSchema = new mongoose.Schema({
     type: Object,
     required: [true, "order amount must be provided"],
   },
+  location: {
+    type: String,
+    required: [true, "location must be provided"],
+  },
 });
 
 module.exports = mongoose.model("Order", orderSchema);

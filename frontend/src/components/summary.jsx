@@ -4,6 +4,7 @@ import "./summary.css";
 import { BASE_URL } from "../config";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import axios from "axios";
+import { useState } from "react";
 function ListItem({ itemName, itemCount, itemPrice }) {
   return (
     <div className="listItem">
@@ -20,9 +21,11 @@ function ListItem({ itemName, itemCount, itemPrice }) {
   );
 }
 export default function Summary() {
+  const [on, setOn] = useState(0);
+  const [location, setLocation] = useState("Dine in");
   const { cartItems, amount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const checkoutHandler = async () => {
+  const checkoutHandler = async (location) => {
     dispatch(changeScreen("Loading"));
     const {
       data: { key },
@@ -39,6 +42,7 @@ export default function Summary() {
     } = await axios.post(`${BASE_URL}/api/v1/checkout`, {
       amount,
       items,
+      location,
     });
     const options = {
       key,
@@ -96,10 +100,31 @@ export default function Summary() {
           <h1>Subtotal: ₹ {amount}</h1>
         </div>
       </div>
+      <label className="switch">
+        <input
+          type="checkbox"
+          onClick={() => {
+            setOn((prev) => !prev);
+          }}
+        />
+        <span className="slider round"></span>
+      </label>
+      {on ? (
+        <textarea
+          className="location"
+          rows={10}
+          placeholder="Enter location"
+          onChange={(e) => {
+            setLocation(e.target.value);
+          }}
+        />
+      ) : (
+        <></>
+      )}
       <button
         className="payNow"
         onClick={() => {
-          checkoutHandler();
+          checkoutHandler(location);
         }}
       >
         Pay Now
