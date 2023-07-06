@@ -108,7 +108,12 @@ export default function Summary() {
         <input
           type="checkbox"
           onClick={() => {
-            setOn((prev) => !prev);
+            if (on) {
+              setLocation("Dine in");
+              setOn(0);
+            } else {
+              setOn(1);
+            }
           }}
         />
         <span className="slider round"></span>
