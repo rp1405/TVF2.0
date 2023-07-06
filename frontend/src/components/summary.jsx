@@ -26,6 +26,10 @@ export default function Summary() {
   const { cartItems, amount } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const checkoutHandler = async (location) => {
+    if (location == "") {
+      alert("Enter delivery location");
+      return;
+    }
     dispatch(changeScreen("Loading"));
     const {
       data: { key },
