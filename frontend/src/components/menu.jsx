@@ -9,7 +9,8 @@ export default function Menu({ category }) {
     }
   }
   return (
-    <div>
+    // done to manage footer
+    <div style={{ "padding-bottom": "260px" }}>
       <>{cartItems.map(createTray)}</>
     </div>
   );
